@@ -61,7 +61,7 @@ Design and implementation of a distributed tuple space using a multiple client-s
 \Section{Introduction}
 
 This report was made in scope of the project from the course "Development of Distributed Applications". The goal of the project was to design and implement a Distributed Tuple Space using a multiple Client-Server architecture. 
-The system had to be able to be tested with two variants of the tuple space, one using the State Machine Replication approach and the other by following the implementation proposed by Xu and Liskov. The system developed should also be fault-tolerant.
+The system had to be able to be tested with two variants of the tuple space, one using the State Machine Replication approach and the other by following the implementation proposed by Xu and Liskov. The system developed should also be fault-tolerant. In this report we will discuss the two variants and their advantages, how they work and justify the design decisions.
 
 
 %Our main goal was to use two variants of the tuple space, the state Machine Replication and the implementation proposed by Xu and Liskov and create a fault-tolerant System. 
@@ -70,13 +70,25 @@ The system had to be able to be tested with two variants of the tuple space, one
 \Section{Instructions}
 To Do:
 
-Descrever resumidamente o problema que se vai resolver
+The problem to be solved is that servers can fail and the system has to be prepared  to when those failures happen. To solve this problem, we need to implement a fault-tolerant system which is reliable to use.
 
-Descrever as solu\c{c}\~oes de implementa\c{c}\~ao propostas
+One of the solutions was to use the State Machine Replication approach, that consists in a general method for implementing a fault-tolerant service by replicating servers and coordinating client interactions with server replicas.
 
-Descrever as vantagens relativas a cada solu\c{c}\~ao
+The following steps illustrate the State Machine Replication approach:\\
+ - Place copies of the State Machine on multiple, independent servers.\\
+ - Receive client requests, interpreted as Inputs to the State Machine\\
+ - Choose an ordering for the Inputs\\
+ - Execute Inputs in the chosen order on each server\\
+ - Respond to clients with the Output from the State Machine\\
+ - Monitor replicas for differences in State or Output\\
 
-Incluir uma explica\c{c}\~ao dos algoritmos utilizados e justifica\c{c}\~oes para as decis\~oes de design
+Descrever resumidamente o problema que se vai resolver (o problema foi o q escrevi, existencia de falhas)
+
+Descrever as solu\c{c}\~oes de implementa\c{c}\~ao propostas (SMR e XuLiskov)
+
+Descrever as vantagens relativas a cada solu\c{c}\~ao (ver na net)
+
+Incluir uma explica\c{c}\~ao dos algoritmos utilizados e justifica\c{c}\~oes para as decis\~oes de design (net e justificar)
 %Please read the following carefully.
 
 
