@@ -100,45 +100,94 @@ In the SMR approach, the tuple space behaves as a state-machine. The replicas in
 
 In the Xu and Liskov version, the replication strategy is optimized by using partitioning.
 
-We analyzed the time elapsed when executing a given command from the script for the Xu and Liskov version and the SMR version.
+%--------------------------------------------------------------------------------
+\Section{Performance Analysis}
 
+We analyzed the time elapsed while executing a given command from the script for the Xu and Liskov version and the SMR version.
 
-First we tested our program with two clients running simultaneuosly and executing the same script.\\
-    %Inserir script
+We used the following scripts with the corresponding commands:\\
+     - Script1\\
+        
+        
+        
+        
+        
+        
+        
+    Script2
 
-For the Xu and Liskov version:\\
+First, we tested our program with three servers and two clients running simultaneously and executing the same script.\\
+
+For the Xu and Liskov version, we used two workers and one replica.\\
+
+For Xu and Liskov:\\
     Average Time of client1 for read operation: 806ms\\
     Average Time of client1 for take operation: 730ms\\
     The client2 was blocked because of a take operation that was made first by client1.\\
 
-For the SMR version:\\
+For SMR:\\
     Average Time of client1 for read operation: 590ms\\
     Average Time of client1 for take operation: 706ms\\
     Average Time of client2 for read operation: 516ms\\
     Average Time of client2 for take operation: 226ms\\
     
-On the next step, we tested our program with two clients running simultaneuosly and executing different scripts.
-    %Inserir scripts
+In this test, we can see that the SMR version has better results than the Xu and Liskov version, because in the Xu and Liskov version, this operations have the possibility to be recursively executed and that's why they take more time to be executed.
     
-For the Xu and Liskov version:
+On the next test, we tested our program with three servers and two clients running simultaneously and executing different scripts.\\
+    
+    For the Xu and Liskov version, we used two workers and one replica.\\
+    
+For Xu and Liskov:\\
     Average Time of client1 for read operation: 740ms\\
     Average Time of client1 for take operation: 694ms\\
     Average Time of client2 for read operation: 676ms\\
     Average Time of client2 for take operation: 492ms\\
-    
-    In this version while using two different scripts the average time of execution decreases because the two clients aren't requesting operations for the same tuples.
-    
-    
-    no xu liskov com dois scripts diferentes diminui o tempo medio de execuçao pois ja nao estao ambos atras dos mesmos tuplos
 
-For the SMR version:\\
+For SMR:\\
     Average Time of client1 for read operation: 455ms\\
     Average Time of client1 for take operation: 601ms\\
     Average Time of client2 for read operation: 457ms\\
     Average Time of client2 for take operation: 567ms\\
+    
+    In this test, while using two different scripts, the average time of execution decreases because the two clients aren't requesting operations for the same tuples.
 
- 
- 
+
+On other test we made, we tested our program with six servers and two clients running simultaneously and executing the same script.\\
+
+    For the Xu and Liskov version, we used three workers and three replicas.\\
+    
+For Xu and Liskov:\\
+    Average Time of client1 for read operation: 1476ms\\
+    Average Time of client1 for take operation: 633ms\\
+    Average Time of client2 for read operation: 1212ms\\
+    Average Time of client2 for take operation: 521ms\\
+
+For SMR:\\
+    Average Time of client1 for read operation: 515ms\\
+    Average Time of client1 for take operation: 482ms\\
+    Average Time of client2 for read operation: 576ms\\
+    Average Time of client2 for take operation: 591ms\\
+    
+
+For the final test, we tested our program with six servers and two clients running simultaneously and executing different scripts,\\
+
+    For the Xu and Liskov version, we used three workers and three replicas.\\
+    
+For Xu and Liskov:\\
+    Average Time of client1 for read operation: 1476ms\\
+    Average Time of client1 for take operation: 633ms\\
+    Average Time of client2 for read operation: 1212ms\\
+    Average Time of client2 for take operation: 521ms\\
+    
+    In this version while using two different scripts the average time of execution decreases because the two clients aren't requesting operations for the same tuples.
+
+For SMR:\\
+    Average Time of client1 for read operation: 515ms\\
+    Average Time of client1 for take operation: 482ms\\
+    Average Time of client2 for read operation: 576ms\\
+    Average Time of client2 for take operation: 591ms\\
+    
+    
 %Descrever resumidamente o problema que se vai resolver (o problema foi o q escrevi, existencia de falhas)
 
 %Descrever as solu\c{c}\~oes de implementa\c{c}\~ao propostas (SMR e XuLiskov)
@@ -158,41 +207,8 @@ Incluir uma explica\c{c}\~ao dos algoritmos utilizados e justifica\c{c}\~oes par
 
 
 %------------------------------------------------------------------------- 
-\SubSection{Language}
-
-All manuscripts must be in English.
-
-%------------------------------------------------------------------------- 
-\SubSection{Printing your paper}
-
-Print your properly formatted text on high-quality, $8.5 \times 11$-inch 
-white printer paper. A4 paper is also acceptable, but please leave the 
-extra 0.5 inch (1.27 cm) at the BOTTOM of the page.
-
-%------------------------------------------------------------------------- 
-\SubSection{Margins and page numbering}
-
-All printed material, including text, illustrations, and charts, must be 
-kept within a print area 6-7/8 inches (17.5 cm) wide by 8-7/8 inches 
-(22.54 cm) high. Do not write or print anything outside the print area. 
-Number your pages lightly, in pencil, on the upper right-hand corners of 
-the BACKS of the pages (for example, 1/10, 2/10, or 1 of 10, 2 of 10, and 
-so forth). Please do not write on the fronts of the pages, nor on the 
-lower halves of the backs of the pages.
-
-
-%------------------------------------------------------------------------ 
 \SubSection{Formatting your paper}
 
-All text must be in a two-column format. The total allowable width of 
-the text area is 6-7/8 inches (17.5 cm) wide by 8-7/8 inches (22.54 cm) 
-high. Columns are to be 3-1/4 inches (8.25 cm) wide, with a 5/16 inch 
-(0.8 cm) space between them. The main title (on the first page) should 
-begin 1.0 inch (2.54 cm) from the top edge of the page. The second and 
-following pages should begin 1.0 inch (2.54 cm) from the top edge. On 
-all pages, the bottom margin should be 1-1/8 inches (2.86 cm) from the 
-bottom edge of the page for $8.5 \times 11$-inch paper; for A4 paper, 
-approximately 1-5/8 inches (4.13 cm) from the bottom edge of the page.
 
 %------------------------------------------------------------------------- 
 \SubSection{Type-style and fonts}
@@ -247,19 +263,6 @@ capitalized, flush left, preceded by one blank line, followed by a period
 and your text on the same line.
 
 %------------------------------------------------------------------------- 
-\SubSection{Footnotes}
-
-Please use footnotes sparingly%
-\footnote
-   {%
-     Or, better still, try to avoid footnotes altogether.  To help your 
-     readers, avoid using footnotes altogether and include necessary 
-     peripheral observations in the text (within parentheses, if you 
-     prefer, as in this sentence).
-   }
-and place them at the bottom of the column on the page on which they are 
-referenced. Use Times 8-point type, single-spaced.
-
 
 %------------------------------------------------------------------------- 
 \SubSection{References}
@@ -291,21 +294,6 @@ than the cover) is prohibitively expensive. We publish interior pages in
 color only when it is specifically requested and budgeted for by the 
 conference organizers. DO NOT SUBMIT COLOR IMAGES IN YOUR 
 PAPERS UNLESS SPECIFICALLY INSTRUCTED TO DO SO.
-
-%------------------------------------------------------------------------- 
-\SubSection{Symbols}
-
-If your word processor or typewriter cannot produce Greek letters, 
-mathematical symbols, or other graphical elements, please use 
-pressure-sensitive (self-adhesive) rub-on symbols or letters (available 
-in most stationery stores, art stores, or graphics shops).
-
-%------------------------------------------------------------------------ 
-\SubSection{Copyright forms}
-
-You must include your signed IEEE copyright release form when you submit 
-your finished paper. We MUST have this form before your paper can be 
-published in the proceedings.
 
 %------------------------------------------------------------------------- 
 \SubSection{Conclusions}
