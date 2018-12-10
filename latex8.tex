@@ -94,6 +94,12 @@ The following steps illustrate what we implemented for State Machine Replication
 Replication can increase the service’ performance and capacity since the replicas provide more resources to the service. 
 Fault tolerance can be achieved with several replicas through the use of spatial redundancy to the system, making it continue to operate despite the failure of a fraction of these replicas.
 
+Replicated tuple spaces are used to guarantee fault-tolerance and scalibility.
+
+In the SMR approach, the tuple space behaves as a state-machine. The replicas in order to ensure consistecy, must begin with the same data (empty tuple space), execute events in the same order and react deterministically to each event.
+
+In the Xu and Liskov version, the replication strategy is optimized by using partitioning.
+
 We analyzed the time elapsed when executing the same script of commands in our program for the Xu and Liskov version and the SMR version
 
 Adicionar os tempos estimados e também o script que foi corrido
