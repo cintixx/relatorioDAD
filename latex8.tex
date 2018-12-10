@@ -64,7 +64,6 @@ The system had to be able to be tested with two variants of the tuple space, one
 
 %------------------------------------------------------------------------- 
     \Section{Implemented Solutions}
-To Do:
 
 The problem to be solved is that servers can fail and the system has to be prepared  to when those failures occur. To solve this problem, we need to implement a fault-tolerant system which is reliable to use.
 
@@ -76,6 +75,7 @@ The following steps illustrate what we implemented for State Machine Replication
  - Choose an ordering for the Inputs\\
  - Execute Inputs in the chosen order on each server\\
  - Respond to clients with the Output from the Tuple Space\\
+ 
  
  For the Xu and Liskov version we implemented the following steps:
  
@@ -92,6 +92,11 @@ The following steps illustrate what we implemented for State Machine Replication
  - after receiving all candidate tuples from all replicas, the worker intersects each set of candidate tuple, which can be multiple and then selects a random tuple from that intersection;\\
  - then it multicasts the tuple selected , commanding the replicas to unlock all selected tuples in the first phase and eliminates the corresponding tuple;\\
  - finally it returns the response to the client\\
+ 
+Replication can increase the service’ performance and capacity since the replicas provide more resources to the service. 
+Fault tolerance can be achieved with several replicas through the use of spatial redundancy to the system, making it continue to operate despite the failure of a fraction of these replicas.
+
+ 
  
 %Descrever resumidamente o problema que se vai resolver (o problema foi o q escrevi, existencia de falhas)
 
