@@ -100,7 +100,15 @@ In the SMR approach, the tuple space behaves as a state-machine. The replicas in
 
 In the Xu and Liskov version, the replication strategy is optimized by using partitioning.
 
-We analyzed the time elapsed when executing the same script of commands in our program for the Xu and Liskov version and the SMR version
+We analyzed the time elapsed when executing a given command from the script in our program for the Xu and Liskov version and the SMR version.
+
+For the Xu and Liskov version and with two clients working simultaneously:
+    Average Time of client1 for read operation: 806ms
+    Average Time of client1 for take operation: 730ms
+    The client2 was blocked because of a take operation that was made first by client1
+    
+    
+    
 
 Adicionar os tempos estimados e também o script que foi corrido
 Podemos testar com vários scripts
