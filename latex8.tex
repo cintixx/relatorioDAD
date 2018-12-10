@@ -63,14 +63,14 @@ The system had to be able to be tested with two variants of the tuple space, one
 %Our main goal was to use two variants of the tuple space, the state Machine Replication and the implementation proposed by Xu and Liskov and create a fault-tolerant System. 
 
 %------------------------------------------------------------------------- 
-\Section{Instructions}
+    \Section{Implemented Solutions}
 To Do:
 
-The problem to be solved is that servers can fail and the system has to be prepared  to when those failures occure. To solve this problem, we need to implement a fault-tolerant system which is reliable to use.
+The problem to be solved is that servers can fail and the system has to be prepared  to when those failures occur. To solve this problem, we need to implement a fault-tolerant system which is reliable to use.
 
 One of the solutions was to use the State Machine Replication approach, that consists in a general method for implementing a fault-tolerant service by replicating servers and coordinating client interactions with server replicas.
 
-The following steps illustrate the State Machine Replication approach:\\
+The following steps illustrate what we implemented for State Machine Replication approach:\\
  - Place copies of the Tuple Space on multiple, independent servers.\\
  - Receive client requests, interpreted as Inputs to the State Machine\\
  - Choose an ordering for the Inputs\\
@@ -79,25 +79,33 @@ The following steps illustrate the State Machine Replication approach:\\
  
  For the Xu and Liskov version we implemented the following steps:
  
- - a Client stores a set of workers to request the operation
- - each worker store a set of existing replicas.
- - the replicas store a set of all existing servers in the node
- - the client send requests to each worker in its set
- - the worker upon receiving each request multicasts it to each replica, sending its id, the message number and the timestamp
- - the replica upon receiving this multicast, verifies if it had already received the message verifying if the message id was lower than the current message id stored for the worker; if it had alrady received it returns null,if it hasnt ir procedes to doing the computation and returns the corresponding tuple;
- - if its a new worker the replica stores the corresponding worker id and the current message number in a hashset;
- - In case of the add operation the worker doesnt wait for all replicas to complete;
- - if it was a read operation the worker stores all replies from replicas and returns the first reply;
- - the take request is divided into two stages, in the first one the replicas receive the multicast stating that is a take operation and the tuple that is to be taken, they identify all matching tuples locking them in the tuple space, and return a set of copies of all matching tuples;
- - after receiving all candidate tuples from all replicas the worker intercepts each set of candidate tuple , which can be multiple and then selects a random tuple from that interception;
- -then it multicasts the tuple selected , commanding the replicas to unlock all selected tuples in the first phase an eliminating the corresponding tuple;
- -finally it returns the response to the client
+ - a Client stores a set of workers to request the operation\\
+ - each worker store a set of existing replicas.\\
+ - the replicas store a set of all existing servers in the node\\
+ - the client send requests to each worker in its set\\
+ - the worker upon receiving each request multicasts it to each replica, sending its id, the message number and the timestamp\\
+ - the replica upon receiving this multicast, verifies if it had already received the message verifying if the message id was lower than the current message id stored for the worker; if it had already received it returns null,if it hasn't it proceeds to doing the computation and returns the corresponding tuple;\\
+ - if its a new worker the replica stores the corresponding worker id and the current message number in a hashset;\\
+ - In case of the add operation the worker doesn't wait for all replicas to complete;\\
+ - if it was a read operation the worker stores all replies from replicas and returns the first reply;\\
+ - the take request is divided into two stages, in the first one the replicas receive the multicast stating that is a take operation and the tuple that is to be taken, they identify all matching tuples locking them in the tuple space, and return a set of copies of all matching tuples;\\
+ - after receiving all candidate tuples from all replicas, the worker intersects each set of candidate tuple, which can be multiple and then selects a random tuple from that intersection;\\
+ - then it multicasts the tuple selected , commanding the replicas to unlock all selected tuples in the first phase and eliminates the corresponding tuple;\\
+ - finally it returns the response to the client\\
  
-Descrever resumidamente o problema que se vai resolver (o problema foi o q escrevi, existencia de falhas)
+%Descrever resumidamente o problema que se vai resolver (o problema foi o q escrevi, existencia de falhas)
 
 Descrever as solu\c{c}\~oes de implementa\c{c}\~ao propostas (SMR e XuLiskov)
 
 Descrever as vantagens relativas a cada solu\c{c}\~ao (ver na net)
+
+Mostrar graficos de desempenho do sistema, muitas leituras poucas escritas.
+
+Explicar os clientes para cada tipo SMR e XL
+
+Que casos beneficiam um modelo ou outro
+
+Colocar os scripts dos clientes
 
 Incluir uma explica\c{c}\~ao dos algoritmos utilizados e justifica\c{c}\~oes para as decis\~oes de design (net e justificar)
 %Please read the following carefully.
