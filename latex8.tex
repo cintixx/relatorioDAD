@@ -44,15 +44,11 @@ cintia.almeida@tecnico.ulisboa.pt\\joao.r.machado@tecnico.ulisboa.pt\\
 
 Design and implementation of a distributed tuple space using a multiple client-server architecture.
 
+We implemented a simple version of the State Machine Replication and of the Xu and Liskov version, with the servers comunicating with each other within a view,
+
+and periodically sending Im alive statements to check if the neighbours are alive.
 
 
-   The ABSTRACT is to be in fully-justified italicized text, at the top 
-   of the left-hand column, below the author and affiliation 
-   information. Use the word ``Abstract'' as the title, in 12-point 
-   Times, boldface type, centered relative to the column, initially 
-   capitalized. The abstract is to be in 10-point, single-spaced type. 
-   The abstract may be up to 3 inches (7.62 cm) long. Leave two blank 
-   lines after the Abstract, then begin the main text. 
 \end{abstract}
 
 
@@ -70,18 +66,33 @@ The system had to be able to be tested with two variants of the tuple space, one
 \Section{Instructions}
 To Do:
 
-The problem to be solved is that servers can fail and the system has to be prepared  to when those failures happen. To solve this problem, we need to implement a fault-tolerant system which is reliable to use.
+The problem to be solved is that servers can fail and the system has to be prepared  to when those failures occure. To solve this problem, we need to implement a fault-tolerant system which is reliable to use.
 
 One of the solutions was to use the State Machine Replication approach, that consists in a general method for implementing a fault-tolerant service by replicating servers and coordinating client interactions with server replicas.
 
 The following steps illustrate the State Machine Replication approach:\\
- - Place copies of the State Machine on multiple, independent servers.\\
+ - Place copies of the Tuple Space on multiple, independent servers.\\
  - Receive client requests, interpreted as Inputs to the State Machine\\
  - Choose an ordering for the Inputs\\
  - Execute Inputs in the chosen order on each server\\
- - Respond to clients with the Output from the State Machine\\
- - Monitor replicas for differences in State or Output\\
-
+ - Respond to clients with the Output from the Tuple Space\\
+ 
+ For the Xu and Liskov version we implemented the following steps:
+ 
+ - a Client stores a set of workers to request the operation
+ - each worker store a set of existing replicas.
+ - the replicas store a set of all existing servers in the node
+ - the client send requests to each worker in its set
+ - the worker upon receiving each request multicasts it to each replica, sending its id, the message number and the timestamp
+ - the replica upon receiving this multicast, verifies if it had already received the message verifying if the message id was lower than the current message id stored for the worker; if it had alrady received it returns null,if it hasnt ir procedes to doing the computation and returns the corresponding tuple;
+ - if its a new worker the replica stores the corresponding worker id and the current message number in a hashset;
+ - In case of the add operation the worker doesnt wait for all replicas to complete;
+ - if it was a read operation the worker stores all replies from replicas and returns the first reply;
+ - the take request is divided into two stages, in the first one the replicas receive the multicast stating that is a take operation and the tuple that is to be taken, they identify all matching tuples locking them in the tuple space, and return a set of copies of all matching tuples;
+ - after receiving all candidate tuples from all replicas the worker intercepts each set of candidate tuple , which can be multiple and then selects a random tuple from that interception;
+ -then it multicasts the tuple selected , commanding the replicas to unlock all selected tuples in the first phase an eliminating the corresponding tuple;
+ -finally it returns the response to the client
+ 
 Descrever resumidamente o problema que se vai resolver (o problema foi o q escrevi, existencia de falhas)
 
 Descrever as solu\c{c}\~oes de implementa\c{c}\~ao propostas (SMR e XuLiskov)
