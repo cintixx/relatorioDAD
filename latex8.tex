@@ -102,10 +102,26 @@ In the Xu and Liskov version, the replication strategy is optimized by using par
 
 We analyzed the time elapsed when executing a given command from the script in our program for the Xu and Liskov version and the SMR version.
 
-For the Xu and Liskov version and with two clients working simultaneously:
+
+First we tested our program with two clients running simultaneuosly and executing the same script.
+    %Inserir script
+
+For the Xu and Liskov version:
     Average Time of client1 for read operation: 806ms
     Average Time of client1 for take operation: 730ms
-    The client2 was blocked because of a take operation that was made first by client1
+    The client2 was blocked because of a take operation that was made first by client1.
+
+For the SMR version:
+    Average Time of client1 for read operation: 590ms
+    Average Time of client1 for take operation: 706ms
+    Average Time of client2 for read operation: 516ms
+    Average Time of client2 for take operation: 226ms
+    
+On the next step, we tested our program with two clients running simultaneuosly and executing the different scripts.
+    Average Time of client1 for read operation: 590ms
+    Average Time of client1 for take operation: 706ms
+    Average Time of client2 for read operation: 516ms
+    Average Time of client2 for take operation: 226ms
     
     
     
