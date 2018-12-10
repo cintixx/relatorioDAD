@@ -100,34 +100,38 @@ In the SMR approach, the tuple space behaves as a state-machine. The replicas in
 
 In the Xu and Liskov version, the replication strategy is optimized by using partitioning.
 
-We analyzed the time elapsed when executing a given command from the script in our program for the Xu and Liskov version and the SMR version.
+We analyzed the time elapsed when executing a given command from the script for the Xu and Liskov version and the SMR version.
 
 
-First we tested our program with two clients running simultaneuosly and executing the same script.
+First we tested our program with two clients running simultaneuosly and executing the same script.\\
     %Inserir script
 
-For the Xu and Liskov version:
-    Average Time of client1 for read operation: 806ms
-    Average Time of client1 for take operation: 730ms
-    The client2 was blocked because of a take operation that was made first by client1.
+For the Xu and Liskov version:\\
+    Average Time of client1 for read operation: 806ms\\
+    Average Time of client1 for take operation: 730ms\\
+    The client2 was blocked because of a take operation that was made first by client1.\\
 
-For the SMR version:
-    Average Time of client1 for read operation: 590ms
-    Average Time of client1 for take operation: 706ms
-    Average Time of client2 for read operation: 516ms
-    Average Time of client2 for take operation: 226ms
+For the SMR version:\\
+    Average Time of client1 for read operation: 590ms\\
+    Average Time of client1 for take operation: 706ms\\
+    Average Time of client2 for read operation: 516ms\\
+    Average Time of client2 for take operation: 226ms\\
     
 On the next step, we tested our program with two clients running simultaneuosly and executing the different scripts.
-    Average Time of client1 for read operation: 590ms
-    Average Time of client1 for take operation: 706ms
-    Average Time of client2 for read operation: 516ms
-    Average Time of client2 for take operation: 226ms
-    
-    
-    
 
-Adicionar os tempos estimados e também o script que foi corrido
-Podemos testar com vários scripts
+    %Inserir scripts
+
+For the Xu and Liskov version:\\
+    Average Time of client1 for read operation: 455ms\\
+    Average Time of client1 for take operation: 601ms\\
+    Average Time of client2 for read operation: 457ms\\
+    Average Time of client2 for take operation: 567ms\\
+    
+For the SMR version:
+    Average Time of client1 for read operation: 590ms\\
+    Average Time of client1 for take operation: 706ms\\
+    Average Time of client2 for read operation: 516ms\\
+    Average Time of client2 for take operation: 226ms\\
 
  
  
