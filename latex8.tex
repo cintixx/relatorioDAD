@@ -77,11 +77,11 @@ The following steps illustrate what we implemented for State Machine Replication
  
  For the Xu and Liskov version we implemented the following steps:
  
- - a Client stores a set of workers to request the operation\\
- - each worker store a set of existing replicas.\\
- - the replicas store a set of all existing servers in the node\\
- - the client send requests to each worker in its set\\
- - the worker upon receiving each request multicasts it to each replica, sending its id, the message number and the timestamp\\
+ - a Client stores a set of workers to request the operation;\\
+ - each worker store a set of existing replicas;\\
+ - the replicas store a set of all existing servers in the node;\\
+ - the client send requests to each worker in its set;\\
+ - the worker upon receiving each request multicasts it to each replica, sending its id, the message number and the timestamp;\\
  - the replica upon receiving this multicast, verifies if it had already received the message verifying if the message id was lower than the current message id stored for the worker; if it had already received it returns null,if it hasn't it proceeds to doing the computation and returns the corresponding tuple;\\
  - if its a new worker the replica stores the corresponding worker id and the current message number in a hashset;\\
  - In case of the add operation the worker doesn't wait for all replicas to complete;\\
@@ -89,7 +89,7 @@ The following steps illustrate what we implemented for State Machine Replication
  - the take request is divided into two stages, in the first one the replicas receive the multicast stating that is a take operation and the tuple that is to be taken, they identify all matching tuples locking them in the tuple space, and return a set of copies of all matching tuples;\\
  - after receiving all candidate tuples from all replicas, the worker intersects each set of candidate tuple, which can be multiple and then selects a random tuple from that intersection;\\
  - then it multicasts the tuple selected , commanding the replicas to unlock all selected tuples in the first phase and eliminates the corresponding tuple;\\
- - finally it returns the response to the client\\
+ - finally it returns the response to the client.\\
  
 Replication can increase the service’ performance and capacity since the replicas provide more resources to the service. 
 Fault tolerance can be achieved with several replicas through the use of spatial redundancy to the system, making it continue to operate despite the failure of a fraction of these replicas.
@@ -117,21 +117,25 @@ For the SMR version:\\
     Average Time of client2 for read operation: 516ms\\
     Average Time of client2 for take operation: 226ms\\
     
-On the next step, we tested our program with two clients running simultaneuosly and executing the different scripts.
-
+On the next step, we tested our program with two clients running simultaneuosly and executing different scripts.
     %Inserir scripts
+    
+For the Xu and Liskov version:
+    Average Time of client1 for read operation: 740ms\\
+    Average Time of client1 for take operation: 694ms\\
+    Average Time of client2 for read operation: 676ms\\
+    Average Time of client2 for take operation: 492ms\\
+    
+    In this version while using two different scripts the average time of execution decreases because the two clients aren't requesting operations for the same tuples.
+    
+    
+    no xu liskov com dois scripts diferentes diminui o tempo medio de execuçao pois ja nao estao ambos atras dos mesmos tuplos
 
-For the Xu and Liskov version:\\
+For the SMR version:\\
     Average Time of client1 for read operation: 455ms\\
     Average Time of client1 for take operation: 601ms\\
     Average Time of client2 for read operation: 457ms\\
     Average Time of client2 for take operation: 567ms\\
-    
-For the SMR version:
-    Average Time of client1 for read operation: 590ms\\
-    Average Time of client1 for take operation: 706ms\\
-    Average Time of client2 for read operation: 516ms\\
-    Average Time of client2 for take operation: 226ms\\
 
  
  
